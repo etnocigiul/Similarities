@@ -55,9 +55,16 @@ object Sim extends Serializable{
 		println("Tempo stimato di esecuzione: " + (elapsedTime / 1000000000.0) + " secondi, n° similarities: " + aut.count)
 		}
 
-
+	/*
+	* Funzione obtainSimilaritiesMatrix
+	* param authors: RDD contenente tutte le possibili coppie possibili di autori
+	* param default_preference: valore di default della preference
+	* param default_jaccard: valore di default per l'indice di jaccard
+	* retval: RDD contenente la matrice delle similarities
+	*/
 	def obtainSimilaritiesMatrix(authors: RDD[( (Long, Array[Long]), (Long, Array[Long]) )], default_preference: Double, default_jaccard: Double)  : RDD[(Long, Long, Double)]  = {
 			
+			//Viene utilizzato il logaritmo naturale del coefficiente di similarità di Jaccard per il calcolo delle similarities
 			val initial_similarities_matrix : RDD[(Long, Long, Double)] = authors.map{x =>
 										var a: Double = (x._1._2.intersect(x._2._2).length);
 										var b: Double = (x._1._2.union(x._2._2).length);
