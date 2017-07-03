@@ -22,7 +22,7 @@ object Sim extends Serializable{
 		var edges = input.filter(l => l.length > 0 && l(0) != '#').map({l => val a = l.split("\\s+"); (a(0).toLong, a(1).toLong)})
 
 		val startTime = System.nanoTime()
-		//con questo passaggio evito di tralasciare i collegamenti mancanti, per esempio se esiste il collegamento 1 --> 2 ma non il viceversa, allora quest ultimo viene aggiunto
+		//Con questo passaggio evito di tralasciare i collegamenti mancanti, per esempio se esiste il collegamento 1 --> 2 ma non il viceversa, allora quest ultimo viene aggiunto
 		edges = edges.map(x => (x._2, x._1)).union(edges).distinct 
 
 		//Ricavo un RDD in cui ogni elemento è composto dall'id dell'autore e la sua lista di adiacenza
